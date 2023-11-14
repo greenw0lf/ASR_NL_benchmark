@@ -19,7 +19,7 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       # - name: Build and push Docker images
       #   if: github.ref == 'refs/heads/main'
@@ -41,7 +41,7 @@ jobs:
 
       - name: Build and push Docker images for N-Best
         if: github.ref == 'refs/heads/nbest'
-        uses: docker/build-push-action@v5
+        uses: docker/build-push-action@v1
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
