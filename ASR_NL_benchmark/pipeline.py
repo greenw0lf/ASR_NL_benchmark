@@ -54,7 +54,7 @@ def run_pipeline(hypfile, reffile):
 
     # Run sclite
     run = os.system(
-        f"csrfilt.sh -s -i stm {os.path.join('ASR_NL_benchmark','variations.glm')} < {reffile.normalized_path} > {reffile.variation_path}")
+        f"csrfilt.sh -s -i stm {os.path.join('ASR_NL_benchmark','variations.glm')} < {reffile.path} > {reffile.variation_path}")
     run = os.system(
         f"sclite -D -h {hypfile.variation_path} {hypfile.extension} -r {reffile.variation_path} {reffile.extension} -m hyp -O {os.path.join(os.path.sep,'input','results')} -o dtl spk")
 
