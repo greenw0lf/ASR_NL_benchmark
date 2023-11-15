@@ -37,8 +37,8 @@ def run_pipeline(hypfile, reffile):
     reffile.validate(great_expectations_validation)
 
     # Normalize
-    reffile.clean_text(replace_numbers_and_symbols)
-    reffile.export(os.path.join(os.path.sep,'input',f'{reffile.name}_normalized.{reffile.extension}'))
+    # reffile.clean_text(replace_numbers_and_symbols)
+    # reffile.export(os.path.join(os.path.sep,'input',f'{reffile.name}_normalized.{reffile.extension}'))
     hypfile.clean_text(replace_numbers_and_symbols)
     hypfile.export(os.path.join(os.path.sep,'input',f'{hypfile.name}_normalized.{hypfile.extension}'))
 
@@ -53,10 +53,10 @@ def run_pipeline(hypfile, reffile):
         f"csrfilt.sh -s -i ctm {os.path.join('ASR_NL_benchmark','variations.glm')} < {hypfile.normalized_path} > {hypfile.variation_path}")
 
     # Run sclite
+    # run = os.system(
+    #     f"csrfilt.sh -s -i stm {os.path.join('ASR_NL_benchmark','variations.glm')} < {reffile.normalized_path} > {reffile.variation_path}")
     run = os.system(
-        f"csrfilt.sh -s -i stm {os.path.join('ASR_NL_benchmark','variations.glm')} < {reffile.normalized_path} > {reffile.variation_path}")
-    run = os.system(
-        f"sclite -h {hypfile.variation_path} {hypfile.extension} -r {reffile.variation_path} {reffile.extension} -m hyp -O {os.path.join(os.path.sep,'input','results')} -o dtl spk")
+        f"sclite -h {hypfile.variation_path} {hypfile.extension} -r {reffile.path + '/' + reffile.name} {reffile.extension} -m hyp -O {os.path.join(os.path.sep,'input','results')} -o dtl spk")
 
 def calculate_wer(df):
     """ Calculates the word error rate and adds the collumn 'product' to the dataframe
